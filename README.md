@@ -18,7 +18,7 @@ go test ./...
 ## Build and run
 
 - TODO - see if it's possible to get it running with WASM
-- TODO - main()
+- TODO - pre-commit hooks - code linting, running tests
 
 ## Dependencies
 
@@ -27,6 +27,7 @@ No dependencies ATM. Will need to sort out ebitien later
 ## TODOs
 
 - [x] Basic data types
+- [ ] Repo stuff - pre-commit hooks
 - [ ] State manager
 - [ ] Hook up ebitien game engine
 - [ ] Sort out networking
