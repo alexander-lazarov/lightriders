@@ -1,6 +1,6 @@
 # LightRiders
 
-LightRiders is a classic acton game.
+LightRiders is a classic action game.
 
 ## Installation
 
