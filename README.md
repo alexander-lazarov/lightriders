@@ -7,7 +7,7 @@ LightRiders is a classic acton game.
 Need to have Go installed. After that clone the repository
 
 ```
-git clone https://github.com/alexander-lazarov/light-riders
+git clone https://github.com/alexander-lazarov/lightriders
 ```
 
 ## Running tests
