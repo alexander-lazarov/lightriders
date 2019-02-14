@@ -1,33 +1,11 @@
-package lightriders
+package models
 
 import (
 	"testing"
 )
 
-func initialBoard() *Board {
-	player1 := Player{name: "Player 1"}
-	player2 := Player{name: "Player 2"}
-	grid := new(Grid)
-
-	b := new(Board)
-	b.player1 = &player1
-	b.player2 = &player2
-	b.grid = grid
-
-	for i := range b.grid {
-		for j := range b.grid[i] {
-			b.grid[i][j] = EmptyCell
-		}
-	}
-
-	b.grid[0][7] = Player1Head
-	b.grid[15][7] = Player2Head
-
-	return b
-}
-
 func TestInitialBoardAdvanceNoWinner(t *testing.T) {
-	b := initialBoard()
+	b := InitialBoard()
 
 	w, _ := b.Advance(Up, Down)
 
@@ -63,7 +41,7 @@ func TestInitialBoardAdvanceNoWinner(t *testing.T) {
 }
 
 func TestInitialBoardAdvanceDraw(t *testing.T) {
-	b := initialBoard()
+	b := InitialBoard()
 
 	w, _ := b.Advance(Down, Up)
 
@@ -77,7 +55,7 @@ func TestInitialBoardAdvanceDraw(t *testing.T) {
 }
 
 func TestInitialBoardAdvanceP1Wins(t *testing.T) {
-	b := initialBoard()
+	b := InitialBoard()
 
 	w, _ := b.Advance(Up, Up)
 
@@ -91,7 +69,7 @@ func TestInitialBoardAdvanceP1Wins(t *testing.T) {
 }
 
 func TestInitialBoardAdvanceP2Wins(t *testing.T) {
-	b := initialBoard()
+	b := InitialBoard()
 
 	w, _ := b.Advance(Down, Down)
 

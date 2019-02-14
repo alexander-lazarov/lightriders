@@ -1,7 +1,7 @@
-package lightriders
+package models
 
-const boardWidth = 16
-const boardHeight = 16
+const BoardWidth = 16
+const BoardHeight = 16
 
 // Player represents a player in the game
 type Player struct {
@@ -49,7 +49,7 @@ type Direction byte
 
 // Grid is a two-dimensional array of bytes, representing the grid state
 // The lower left corner has coordinates 0, 0
-type Grid [boardWidth][boardHeight]Cell
+type Grid [BoardWidth][BoardHeight]Cell
 
 // Board rerpesents a game board:
 // - player1, player 2 - reference to players
@@ -77,6 +77,11 @@ const (
 // Winner representation, enum above shows possible values
 type Winner byte
 
+// CellValue the value of a board cell
+func (b *Board) CellValue(x, y int) Cell {
+	return b.grid[x][y]
+}
+
 // Advance the game 1 move
 // Returns a Winner and a Board
 // This is a comment
@@ -91,4 +96,26 @@ func (b *Board) AvailableMoves(player1 bool) []Direction {
 	r := make([]Direction, 0)
 
 	return r
+}
+
+func InitialBoard() *Board {
+	player1 := Player{name: "Player 1"}
+	player2 := Player{name: "Player 2"}
+	grid := new(Grid)
+
+	b := new(Board)
+	b.player1 = &player1
+	b.player2 = &player2
+	b.grid = grid
+
+	for i := range b.grid {
+		for j := range b.grid[i] {
+			b.grid[i][j] = EmptyCell
+		}
+	}
+
+	b.grid[0][7] = Player1Head
+	b.grid[15][7] = Player2Head
+
+	return b
 }
