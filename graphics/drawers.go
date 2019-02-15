@@ -11,7 +11,7 @@ func DrawBoard(board *models.Board) *ebiten.Image {
 
 	for i := 0; i < models.BoardWidth; i++ {
 		for j := 0; j < models.BoardWidth; j++ {
-			tile, _ := ebiten.NewImage(tileWidth, tileHeight, ebiten.FilterDefault)
+			tile, _ := ebiten.NewImage(tileWidth-2, tileHeight-2, ebiten.FilterDefault)
 			tile.Fill(getColor(board, i, j))
 
 			pos := &ebiten.GeoM{}
