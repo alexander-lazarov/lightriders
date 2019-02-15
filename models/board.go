@@ -118,6 +118,7 @@ func (b *Board) Advance(p1dir, p2dir Direction) (Winner, *Board) {
 
 	if b.isOutside(p1head) || b.GetCell(p1head) != EmptyCell {
 		p1crash = true
+		b.setCell(p1neck, Crash)
 	} else {
 		// b.setCell(p1oldneck, P1Tail)
 		b.setCell(p1neck, P1Neck)
@@ -126,6 +127,7 @@ func (b *Board) Advance(p1dir, p2dir Direction) (Winner, *Board) {
 
 	if b.isOutside(p2head) || b.GetCell(p2head) != EmptyCell {
 		p2crash = true
+		b.setCell(p2neck, Crash)
 	} else {
 		// b.setCell(p2oldneck, P2Tail)
 		b.setCell(p2neck, P2Neck)

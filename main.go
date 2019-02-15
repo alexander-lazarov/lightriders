@@ -22,9 +22,14 @@ func main() {
 	graphics.InitBoardImage()
 
 	go func() {
+		var winner models.Winner = models.NoWinner
+
 		for {
 			time.Sleep(1000 * time.Millisecond)
-			board.Advance(models.Right, models.Left)
+
+			if winner == models.NoWinner {
+				winner, _ = board.Advance(models.Right, models.Left)
+			}
 		}
 	}()
 
