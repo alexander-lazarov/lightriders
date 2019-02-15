@@ -8,6 +8,7 @@ Need to have Go installed. After that clone the repository
 
 ```
 git clone https://github.com/alexander-lazarov/lightriders
+go mod download
 ```
 
 ## Running tests
@@ -22,7 +23,7 @@ go test ./...
 
 ## Dependencies
 
-No dependencies ATM. Will need to sort out ebitien later
+Run `go mod download` to download dependencies.
 
 ## TODOs
 
