@@ -13,7 +13,7 @@ func HandleInput(board *models.Board) {
 		board.SetDirP1(models.Down)
 	} else if inpututil.IsKeyJustPressed(ebiten.KeyRight) {
 		board.SetDirP1(models.Right)
-	} else if inpututil.IsKeyJustPressed(ebiten.KeyRight) {
-		board.SetDirP1(models.Right)
+	} else if inpututil.IsKeyJustPressed(ebiten.KeyLeft) {
+		board.SetDirP1(models.Left)
 	}
 }
