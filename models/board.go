@@ -116,22 +116,28 @@ func (b *Board) Advance(p1dir, p2dir Direction) (Winner, *Board) {
 	p1crash := false
 	p2crash := false
 
-	if b.isOutside(p1head) || b.GetCell(p1head) != EmptyCell {
+	if p1head == p2head {
 		p1crash = true
-		b.setCell(p1neck, Crash)
-	} else {
-		// b.setCell(p1oldneck, P1Tail)
-		b.setCell(p1neck, P1Neck)
-		b.setCell(p1head, P1Head)
-	}
-
-	if b.isOutside(p2head) || b.GetCell(p2head) != EmptyCell {
 		p2crash = true
-		b.setCell(p2neck, Crash)
+		b.setCell(p1head, Crash)
 	} else {
-		// b.setCell(p2oldneck, P2Tail)
-		b.setCell(p2neck, P2Neck)
-		b.setCell(p2head, P2Head)
+		if b.isOutside(p1head) || b.GetCell(p1head) != EmptyCell {
+			p1crash = true
+			b.setCell(p1neck, Crash)
+		} else {
+			// b.setCell(p1oldneck, P1Tail)
+			b.setCell(p1neck, P1Neck)
+			b.setCell(p1head, P1Head)
+		}
+
+		if b.isOutside(p2head) || b.GetCell(p2head) != EmptyCell {
+			p2crash = true
+			b.setCell(p2neck, Crash)
+		} else {
+			// b.setCell(p2oldneck, P2Tail)
+			b.setCell(p2neck, P2Neck)
+			b.setCell(p2head, P2Head)
+		}
 	}
 
 	if p1crash && p2crash {
