@@ -8,12 +8,6 @@ const BoardWidth = 16
 // BoardHeight in cells
 const BoardHeight = 16
 
-// Position represents a position on the grid
-type Position struct {
-	X int
-	Y int
-}
-
 // Player represents a player in the game
 type Player struct {
 	name      string
@@ -41,6 +35,9 @@ const (
 
 	// P2Tail cell - tail of player 1
 	P2Tail
+
+	// Crash cell - when p1 or p2 hits the board edge or another player
+	Crash
 )
 
 // Cell represents a cell of the board grid
@@ -95,22 +92,65 @@ const (
 // Winner representation, enum above shows possible values
 type Winner byte
 
-// CellValue the value of a board cell
-func (b *Board) CellValue(p Position) Cell {
+// GetCell the value of a board cell
+func (b *Board) GetCell(p Position) Cell {
 	return b.grid[p.X][p.Y]
+}
+
+func (b *Board) setCell(p Position, value Cell) {
+	b.grid[p.X][p.Y] = value
 }
 
 // Advance the game 1 move
 // Returns a Winner and a Board
 // This is a comment
-func (b *Board) Advance(p1, p2 Direction) (Winner, *Board) {
-	return Draw, nil
+func (b *Board) Advance(p1dir, p2dir Direction) (Winner, *Board) {
+	// p1oldneck := b.findCell(P1Neck)
+	p1neck := b.findCell(P1Head)
+	p1head := p1neck.nextPosition(p1dir)
+
+	// p2oldneck := b.findCell(P2Neck)
+	p2neck := b.findCell(P2Head)
+	p2head := p2neck.nextPosition(p2dir)
+
+	p1crash := false
+	p2crash := false
+
+	if b.isOutside(p1head) || b.GetCell(p1head) != EmptyCell {
+		p1crash = true
+	} else {
+		// b.setCell(p1oldneck, P1Tail)
+		b.setCell(p1neck, P1Neck)
+		b.setCell(p1head, P1Head)
+	}
+
+	if b.isOutside(p2head) || b.GetCell(p2head) != EmptyCell {
+		p2crash = true
+	} else {
+		// b.setCell(p2oldneck, P2Tail)
+		b.setCell(p2neck, P2Neck)
+		b.setCell(p2head, P2Head)
+	}
+
+	if p1crash && p2crash {
+		return Draw, b
+	} else if p1crash && !p2crash {
+		return P2Wins, b
+	} else if !p1crash && p2crash {
+		return P1Wins, b
+	} else {
+		return NoWinner, b
+	}
+}
+
+func (b *Board) isOutside(p Position) bool {
+	return p.X < 0 || p.X >= BoardWidth || p.Y < 0 || p.Y >= BoardHeight
 }
 
 func (b *Board) findCell(c Cell) (p Position) {
 	for i := 0; i < BoardWidth; i++ {
 		for j := 0; j < BoardHeight; j++ {
-			if b.CellValue(p) == c {
+			if b.GetCell(Position{X: i, Y: j}) == c {
 				p.X = i
 				p.Y = j
 

@@ -7,7 +7,7 @@ import (
 )
 
 func getColor(board *models.Board, p models.Position) color.RGBA {
-	cell := board.CellValue(p)
+	cell := board.GetCell(p)
 
 	switch cell {
 	case models.P1Head:
@@ -22,6 +22,8 @@ func getColor(board *models.Board, p models.Position) color.RGBA {
 		return color.RGBA{R: 0, G: 0, B: 225, A: 255}
 	case models.P2Tail:
 		return color.RGBA{R: 0, G: 0, B: 200, A: 255}
+	case models.Crash:
+		return color.RGBA{R: 255, G: 0, B: 0, A: 255}
 	default:
 		return color.RGBA{R: 0, G: 0, B: 0, A: 0}
 	}

@@ -11,11 +11,11 @@ func TestInitialBoardAdvanceNoWinner(t *testing.T) {
 
 	t.Run("Winner", func(t *testing.T) {
 		if w != NoWinner {
-			t.Errorf("Expected game winner to be NoWinner")
+			t.Errorf("Expected game winner to be NoWinner %d", w)
 		}
 	})
 
-	t.Run("Player 1 tail is set", func(t *testing.T) {
+	t.Run("Player 1 neck is set", func(t *testing.T) {
 		if b.grid[0][7] != P1Neck {
 			t.Errorf("Expected player 1 neck to be set")
 		}
@@ -28,7 +28,7 @@ func TestInitialBoardAdvanceNoWinner(t *testing.T) {
 	})
 
 	t.Run("Player 2 head is set", func(t *testing.T) {
-		if b.grid[14][7] != P1Head {
+		if b.grid[1][7] != P1Head {
 			t.Errorf("Expected player 1 head to be set")
 		}
 	})
@@ -47,7 +47,7 @@ func TestInitialBoardAdvanceDraw(t *testing.T) {
 
 	t.Run("Winner", func(t *testing.T) {
 		if w != Draw {
-			t.Errorf("Expected game winner to be NoWinner")
+			t.Errorf("Expected game winner to be Draw")
 		}
 	})
 
