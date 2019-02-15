@@ -8,61 +8,6 @@ const BoardWidth = 16
 // BoardHeight in cells
 const BoardHeight = 16
 
-// Player represents a player in the game
-type Player struct {
-	name          string
-	direction     Direction
-	prevDirection Direction
-}
-
-const (
-	// EmptyCell represents an empty cell
-	EmptyCell = iota
-
-	// P1Head cell that contains the player 1 position
-	P1Head
-
-	// P1Neck cell that contains the previous head position
-	P1Neck
-
-	// P1Tail cell - tail of player 1
-	P1Tail
-
-	// P2Head cell that contains the player 2 position
-	P2Head
-
-	// P2Neck cell that contains the previous head position
-	P2Neck
-
-	// P2Tail cell - tail of player 1
-	P2Tail
-
-	// Crash cell - when p1 or p2 hits the board edge or another player
-	Crash
-)
-
-// Cell represents a cell of the board grid
-// The enum above contains the possibble values
-type Cell byte
-
-// Direction representation
-const (
-	// Up
-	Up = iota
-
-	// Left
-	Left
-
-	// Down
-	Down
-
-	// Right
-	Right
-)
-
-// Direction representation, above are the available values
-type Direction byte
-
 // Grid is a two-dimensional array of bytes, representing the grid state
 // The lower left corner has coordinates 0, 0
 type Grid [BoardWidth][BoardHeight]Cell
@@ -111,21 +56,6 @@ func (b *Board) SetDirP1(d Direction) {
 func (b *Board) SetDirP2(d Direction) {
 	if d != b.P2.prevDirection.opposite() {
 		b.P2.direction = d
-	}
-}
-
-func (d Direction) opposite() Direction {
-	switch d {
-	case Up:
-		return Down
-	case Down:
-		return Up
-	case Left:
-		return Right
-	case Right:
-		return Left
-	default:
-		panic("Unknown direction")
 	}
 }
 
