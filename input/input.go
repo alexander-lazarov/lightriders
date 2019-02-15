@@ -5,10 +5,10 @@ import (
 	"github.com/hajimehoshi/ebiten/inpututil"
 )
 
-func HandleInput(board *models.Board, keyset *Keyset) {
+func HandleInput(board *models.Player, keyset *Keyset) {
 	for in, out := range *keyset {
 		if inpututil.IsKeyJustPressed(in) {
-			board.SetDirP1(out)
+			board.SetDirection(out)
 		}
 	}
 }

@@ -10,7 +10,8 @@ import (
 )
 
 func update(screen *ebiten.Image) error {
-	input.HandleInput(&board, &input.KeysetArrows)
+	input.HandleInput(board.P1, &input.KeysetWASD)
+	input.HandleInput(board.P2, &input.KeysetArrows)
 	graphics.UpdateBoardImage(&board)
 	screen.DrawImage(graphics.GetBoardImage(), &ebiten.DrawImageOptions{})
 

@@ -47,18 +47,6 @@ func (b *Board) setCell(p Position, value Cell) {
 	b.grid[p.X][p.Y] = value
 }
 
-func (b *Board) SetDirP1(d Direction) {
-	if d != b.P1.prevDirection.opposite() {
-		b.P1.direction = d
-	}
-}
-
-func (b *Board) SetDirP2(d Direction) {
-	if d != b.P2.prevDirection.opposite() {
-		b.P2.direction = d
-	}
-}
-
 // Advance the game 1 move
 // Returns a Winner and a Board
 // This is a comment

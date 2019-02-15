@@ -6,3 +6,9 @@ type Player struct {
 	direction     Direction
 	prevDirection Direction
 }
+
+func (p *Player) SetDirection(d Direction) {
+	if d != p.prevDirection.opposite() {
+		p.direction = d
+	}
+}
