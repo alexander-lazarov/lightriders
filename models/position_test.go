@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func TestInitialNextPosition(t *testing.T) {
+func TestNextPosition(t *testing.T) {
 
 	t.Run("Up", func(t *testing.T) {
 		actual := Position{X: 0, Y: 0}.nextPosition(Up)
