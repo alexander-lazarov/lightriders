@@ -10,8 +10,9 @@ const BoardHeight = 16
 
 // Player represents a player in the game
 type Player struct {
-	name      string
-	direction Direction
+	name          string
+	direction     Direction
+	prevDirection Direction
 }
 
 const (
@@ -102,19 +103,39 @@ func (b *Board) setCell(p Position, value Cell) {
 }
 
 func (b *Board) SetDirP1(d Direction) {
-	// TODO - check if direction is available
-	b.P1.direction = d
+	if d != b.P1.prevDirection.opposite() {
+		b.P1.direction = d
+	}
 }
 
 func (b *Board) SetDirP2(d Direction) {
-	// TODO - check if direction is available
-	b.P2.direction = d
+	if d != b.P2.prevDirection.opposite() {
+		b.P2.direction = d
+	}
+}
+
+func (d Direction) opposite() Direction {
+	switch d {
+	case Up:
+		return Down
+	case Down:
+		return Up
+	case Left:
+		return Right
+	case Right:
+		return Left
+	default:
+		panic("Unknown direction")
+	}
 }
 
 // Advance the game 1 move
 // Returns a Winner and a Board
 // This is a comment
 func (b *Board) Advance() (Winner, *Board) {
+	b.P1.prevDirection = b.P1.direction
+	b.P2.prevDirection = b.P2.direction
+
 	// p1oldneck := b.findCell(P1Neck)
 	p1neck := b.findCell(P1Head)
 	p1head := p1neck.nextPosition(b.P1.direction)
@@ -180,19 +201,10 @@ func (b *Board) findCell(c Cell) (p Position) {
 	panic(fmt.Sprintf("Could not find cell %d", c))
 }
 
-// AvailableMoves returns a slice of possibble moves for the given player
-// If true is passed, retruns the moves for player 1, otherwise for player 2
-// Available moves are all except for when trying to move back into the tail
-func (b *Board) AvailableMoves(P1 bool) []Direction {
-	r := make([]Direction, 0)
-
-	return r
-}
-
 // InitialBoard creates an initial board
 func InitialBoard() *Board {
-	P1 := Player{name: "Player 1", direction: Right}
-	P2 := Player{name: "Player 2", direction: Left}
+	P1 := Player{name: "Player 1", direction: Right, prevDirection: Right}
+	P2 := Player{name: "Player 2", direction: Left, prevDirection: Left}
 	grid := new(Grid)
 
 	b := new(Board)

@@ -4,6 +4,14 @@ import (
 	"testing"
 )
 
+func cleanBoard() *Board {
+	b := InitialBoard()
+	b.grid[0][7] = EmptyCell
+	b.grid[15][7] = EmptyCell
+
+	return b
+}
+
 func TestInitialBoardAdvanceNoWinner(t *testing.T) {
 	b := InitialBoard()
 
@@ -86,9 +94,7 @@ func TestInitialBoardAdvanceP2Wins(t *testing.T) {
 }
 
 func TestDrawWhenArriveAtTheSameCell(t *testing.T) {
-	b := InitialBoard()
-	b.grid[0][7] = EmptyCell
-	b.grid[15][7] = EmptyCell
+	b := cleanBoard()
 	b.grid[6][7] = P1Head
 	b.grid[8][7] = P2Head
 
