@@ -144,8 +144,8 @@ func InitialBoard() *Board {
 		}
 	}
 
-	b.grid[0][7] = P1Head
-	b.grid[15][7] = P2Head
+	b.grid[0][BoardHeight/2+BoardHeight%2] = P1Head
+	b.grid[BoardWidth-1][BoardHeight/2+BoardHeight%2] = P2Head
 
 	return b
 }
