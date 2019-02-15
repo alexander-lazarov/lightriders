@@ -2,6 +2,8 @@ package models
 
 import (
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func cleanBoard() *Board {
@@ -17,80 +19,45 @@ func TestInitialBoardAdvanceNoWinner(t *testing.T) {
 
 	w, _ := b.Advance()
 
-	t.Run("Winner", func(t *testing.T) {
-		if w != NoWinner {
-			t.Errorf("Expected game winner to be NoWinner %d", w)
-		}
-	})
+	assert.Equal(t, w, (Winner)(NoWinner))
 
-	t.Run("Player 1 neck is set", func(t *testing.T) {
-		if b.grid[0][7] != P1Neck {
-			t.Errorf("Expected player 1 neck to be set")
-		}
-	})
-
-	t.Run("Player 2 neck is set", func(t *testing.T) {
-		if b.grid[15][7] != P2Neck {
-			t.Errorf("Expected player 2 neck to be set")
-		}
-	})
-
-	t.Run("Player 2 head is set", func(t *testing.T) {
-		if b.grid[1][7] != P1Head {
-			t.Errorf("Expected player 1 head to be set")
-		}
-	})
-
-	t.Run("Player 2 neck is set", func(t *testing.T) {
-		if b.grid[14][7] != P2Head {
-			t.Errorf("Expected player 2 head to be set")
-		}
-	})
+	assert.Equal(t, b.grid[0][7], (Cell)(P1Neck))
+	assert.Equal(t, b.grid[15][7], (Cell)(P2Neck))
+	assert.Equal(t, b.grid[1][7], (Cell)(P1Head))
+	assert.Equal(t, b.grid[14][7], (Cell)(P2Head))
 }
 
 func TestInitialBoardAdvanceDraw(t *testing.T) {
 	b := InitialBoard()
 
-	b.SetDirP1(Left)
-	b.SetDirP2(Right)
+	b.P1.direction = Left
+	b.P2.direction = Right
 
 	w, _ := b.Advance()
 
-	t.Run("Winner", func(t *testing.T) {
-		if w != Draw {
-			t.Errorf("Expected game winner to be Draw")
-		}
-	})
+	assert.Equal(t, w, (Winner)(Draw))
 }
 
 func TestInitialBoardAdvanceP1Wins(t *testing.T) {
 	b := InitialBoard()
 
-	b.SetDirP1(Right)
-	b.SetDirP2(Right)
+	b.P1.direction = Right
+	b.P2.direction = Right
 
 	w, _ := b.Advance()
 
-	t.Run("Winner", func(t *testing.T) {
-		if w != P1Wins {
-			t.Errorf("Expected game winner to be P1")
-		}
-	})
+	assert.Equal(t, w, (Winner)(P1Wins))
 }
 
 func TestInitialBoardAdvanceP2Wins(t *testing.T) {
 	b := InitialBoard()
 
-	b.SetDirP1(Left)
-	b.SetDirP2(Left)
+	b.P1.direction = Left
+	b.P2.direction = Left
 
 	w, _ := b.Advance()
 
-	t.Run("Winner", func(t *testing.T) {
-		if w != P2Wins {
-			t.Errorf("Expected game winner to be P2")
-		}
-	})
+	assert.Equal(t, w, (Winner)(P2Wins))
 }
 
 func TestDrawWhenArriveAtTheSameCell(t *testing.T) {
@@ -100,15 +67,6 @@ func TestDrawWhenArriveAtTheSameCell(t *testing.T) {
 
 	w, _ := b.Advance()
 
-	t.Run("Winner", func(t *testing.T) {
-		if w != Draw {
-			t.Errorf("Expected game winner to be Draw")
-		}
-	})
-
-	t.Run("Crash cell", func(t *testing.T) {
-		if b.grid[7][7] != Crash {
-			t.Errorf("Expected the mid cell to be a crash cell")
-		}
-	})
+	assert.Equal(t, w, (Winner)(Draw))
+	assert.Equal(t, b.grid[7][7], (Cell)(Crash))
 }
