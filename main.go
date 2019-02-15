@@ -38,5 +38,5 @@ func main() {
 
 	go boardLoop()
 
-	ebiten.Run(update, 320, 240, 2, "Hello world!")
+	ebiten.Run(update, graphics.TotalWidth, graphics.TotalHeight, 2, "Lightriders!")
 }
