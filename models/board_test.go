@@ -8,8 +8,8 @@ import (
 
 func cleanBoard() *Board {
 	b := InitialBoard()
-	b.grid[0][7] = EmptyCell
-	b.grid[15][7] = EmptyCell
+	b.grid[0][8] = EmptyCell
+	b.grid[15][8] = EmptyCell
 
 	return b
 }
@@ -21,10 +21,10 @@ func TestInitialBoardAdvanceNoWinner(t *testing.T) {
 
 	assert.Equal(t, w, (Winner)(NoWinner))
 
-	assert.Equal(t, b.grid[0][7], (Cell)(P1Tail))
-	assert.Equal(t, b.grid[15][7], (Cell)(P2Tail))
-	assert.Equal(t, b.grid[1][7], (Cell)(P1Head))
-	assert.Equal(t, b.grid[14][7], (Cell)(P2Head))
+	assert.Equal(t, b.grid[0][8], (Cell)(P1Tail))
+	assert.Equal(t, b.grid[15][8], (Cell)(P2Tail))
+	assert.Equal(t, b.grid[1][8], (Cell)(P1Head))
+	assert.Equal(t, b.grid[14][8], (Cell)(P2Head))
 }
 
 func TestInitialBoardAdvanceDraw(t *testing.T) {
@@ -62,11 +62,11 @@ func TestInitialBoardAdvanceP2Wins(t *testing.T) {
 
 func TestDrawWhenArriveAtTheSameCell(t *testing.T) {
 	b := cleanBoard()
-	b.grid[6][7] = P1Head
-	b.grid[8][7] = P2Head
+	b.grid[6][8] = P1Head
+	b.grid[8][8] = P2Head
 
 	w, _ := b.Advance()
 
 	assert.Equal(t, w, (Winner)(Draw))
-	assert.Equal(t, b.grid[7][7], (Cell)(Crash))
+	assert.Equal(t, b.grid[7][8], (Cell)(Crash))
 }
