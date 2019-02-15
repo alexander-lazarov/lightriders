@@ -101,17 +101,27 @@ func (b *Board) setCell(p Position, value Cell) {
 	b.grid[p.X][p.Y] = value
 }
 
+func (b *Board) SetDirP1(d Direction) {
+	// TODO - check if direction is available
+	b.P1.direction = d
+}
+
+func (b *Board) SetDirP2(d Direction) {
+	// TODO - check if direction is available
+	b.P2.direction = d
+}
+
 // Advance the game 1 move
 // Returns a Winner and a Board
 // This is a comment
-func (b *Board) Advance(p1dir, p2dir Direction) (Winner, *Board) {
+func (b *Board) Advance() (Winner, *Board) {
 	// p1oldneck := b.findCell(P1Neck)
 	p1neck := b.findCell(P1Head)
-	p1head := p1neck.nextPosition(p1dir)
+	p1head := p1neck.nextPosition(b.P1.direction)
 
 	// p2oldneck := b.findCell(P2Neck)
 	p2neck := b.findCell(P2Head)
-	p2head := p2neck.nextPosition(p2dir)
+	p2head := p2neck.nextPosition(b.P2.direction)
 
 	p1crash := false
 	p2crash := false

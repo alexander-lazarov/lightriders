@@ -7,7 +7,7 @@ import (
 func TestInitialBoardAdvanceNoWinner(t *testing.T) {
 	b := InitialBoard()
 
-	w, _ := b.Advance(Right, Left)
+	w, _ := b.Advance()
 
 	t.Run("Winner", func(t *testing.T) {
 		if w != NoWinner {
@@ -43,7 +43,10 @@ func TestInitialBoardAdvanceNoWinner(t *testing.T) {
 func TestInitialBoardAdvanceDraw(t *testing.T) {
 	b := InitialBoard()
 
-	w, _ := b.Advance(Left, Right)
+	b.SetDirP1(Left)
+	b.SetDirP2(Right)
+
+	w, _ := b.Advance()
 
 	t.Run("Winner", func(t *testing.T) {
 		if w != Draw {
@@ -55,7 +58,10 @@ func TestInitialBoardAdvanceDraw(t *testing.T) {
 func TestInitialBoardAdvanceP1Wins(t *testing.T) {
 	b := InitialBoard()
 
-	w, _ := b.Advance(Right, Right)
+	b.SetDirP1(Right)
+	b.SetDirP2(Right)
+
+	w, _ := b.Advance()
 
 	t.Run("Winner", func(t *testing.T) {
 		if w != P1Wins {
@@ -67,7 +73,10 @@ func TestInitialBoardAdvanceP1Wins(t *testing.T) {
 func TestInitialBoardAdvanceP2Wins(t *testing.T) {
 	b := InitialBoard()
 
-	w, _ := b.Advance(Left, Left)
+	b.SetDirP1(Left)
+	b.SetDirP2(Left)
+
+	w, _ := b.Advance()
 
 	t.Run("Winner", func(t *testing.T) {
 		if w != P2Wins {
@@ -83,7 +92,7 @@ func TestDrawWhenArriveAtTheSameCell(t *testing.T) {
 	b.grid[6][7] = P1Head
 	b.grid[8][7] = P2Head
 
-	w, _ := b.Advance(Right, Left)
+	w, _ := b.Advance()
 
 	t.Run("Winner", func(t *testing.T) {
 		if w != Draw {

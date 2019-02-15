@@ -28,7 +28,7 @@ func main() {
 			time.Sleep(1000 * time.Millisecond)
 
 			if winner == models.NoWinner {
-				winner, _ = board.Advance(models.Right, models.Left)
+				winner, _ = board.Advance()
 			}
 		}
 	}()
