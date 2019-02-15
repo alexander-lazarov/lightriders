@@ -12,17 +12,23 @@ const (
 	// EmptyCell represents an empty cell
 	EmptyCell = iota
 
-	// Player1Head cell that contains the player 1 position
-	Player1Head
+	// P1Head cell that contains the player 1 position
+	P1Head
 
-	// Player2Head cell that contains the player 2 position
-	Player2Head
+	// P1Neck cell that contains the previous head position
+	P1Neck
 
-	// Player1Tail cell - tail of player 1
-	Player1Tail
+	// P1Tail cell - tail of player 1
+	P1Tail
 
-	// Player2Tail cell - tail of player 1
-	Player2Tail
+	// P2Head cell that contains the player 2 position
+	P2Head
+
+	// P2Neck cell that contains the previous head position
+	P2Neck
+
+	// P2Tail cell - tail of player 1
+	P2Tail
 )
 
 // Cell represents a cell of the board grid
@@ -52,12 +58,12 @@ type Direction byte
 type Grid [BoardWidth][BoardHeight]Cell
 
 // Board rerpesents a game board:
-// - player1, player 2 - reference to players
+// - P1, P2 - reference to players
 // - grid - a two dimensional array, containing the board state
 type Board struct {
-	player1 *Player
-	player2 *Player
-	grid    *Grid
+	P1   *Player
+	P2   *Player
+	grid *Grid
 }
 
 const (
@@ -67,11 +73,11 @@ const (
 	// Draw if reached end game and the game is draw
 	Draw
 
-	// Player1Wins if player 1 wins
-	Player1Wins
+	// P1Wins if player 1 wins
+	P1Wins
 
-	// Player2Wins if player 2 wins
-	Player2Wins
+	// P2Wins if player 2 wins
+	P2Wins
 )
 
 // Winner representation, enum above shows possible values
@@ -92,20 +98,21 @@ func (b *Board) Advance(p1, p2 Direction) (Winner, *Board) {
 // AvailableMoves returns a slice of possibble moves for the given player
 // If true is passed, retruns the moves for player 1, otherwise for player 2
 // Available moves are all except for when trying to move back into the tail
-func (b *Board) AvailableMoves(player1 bool) []Direction {
+func (b *Board) AvailableMoves(P1 bool) []Direction {
 	r := make([]Direction, 0)
 
 	return r
 }
 
+// InitialBoard creates an initial board
 func InitialBoard() *Board {
-	player1 := Player{name: "Player 1"}
-	player2 := Player{name: "Player 2"}
+	P1 := Player{name: "Player 1"}
+	P2 := Player{name: "Player 2"}
 	grid := new(Grid)
 
 	b := new(Board)
-	b.player1 = &player1
-	b.player2 = &player2
+	b.P1 = &P1
+	b.P2 = &P2
 	b.grid = grid
 
 	for i := range b.grid {
@@ -114,8 +121,8 @@ func InitialBoard() *Board {
 		}
 	}
 
-	b.grid[0][7] = Player1Head
-	b.grid[15][7] = Player2Head
+	b.grid[0][7] = P1Head
+	b.grid[15][7] = P2Head
 
 	return b
 }
