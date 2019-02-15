@@ -6,8 +6,8 @@ import (
 	"github.com/alexander-lazarov/lightriders/models"
 )
 
-func getColor(board *models.Board, x, y int) color.RGBA {
-	cell := board.CellValue(x, y)
+func getColor(board *models.Board, p models.Position) color.RGBA {
+	cell := board.CellValue(p)
 
 	switch cell {
 	case models.P1Head:

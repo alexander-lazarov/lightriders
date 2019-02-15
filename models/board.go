@@ -1,10 +1,18 @@
 package models
 
+import "fmt"
+
 // BoardWidth in cells
 const BoardWidth = 16
 
 // BoardHeight in cells
 const BoardHeight = 16
+
+// Position represents a position on the grid
+type Position struct {
+	X int
+	Y int
+}
 
 // Player represents a player in the game
 type Player struct {
@@ -88,8 +96,8 @@ const (
 type Winner byte
 
 // CellValue the value of a board cell
-func (b *Board) CellValue(x, y int) Cell {
-	return b.grid[x][y]
+func (b *Board) CellValue(p Position) Cell {
+	return b.grid[p.X][p.Y]
 }
 
 // Advance the game 1 move
@@ -97,6 +105,21 @@ func (b *Board) CellValue(x, y int) Cell {
 // This is a comment
 func (b *Board) Advance(p1, p2 Direction) (Winner, *Board) {
 	return Draw, nil
+}
+
+func (b *Board) findCell(c Cell) (p Position) {
+	for i := 0; i < BoardWidth; i++ {
+		for j := 0; j < BoardHeight; j++ {
+			if b.CellValue(p) == c {
+				p.X = i
+				p.Y = j
+
+				return
+			}
+		}
+	}
+
+	panic(fmt.Sprintf("Could not find cell %d", c))
 }
 
 // AvailableMoves returns a slice of possibble moves for the given player
