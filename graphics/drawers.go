@@ -17,7 +17,7 @@ func InitBoardImage() {
 
 	for i := range cellImages {
 		for j := range cellImages[i] {
-			tile, _ := ebiten.NewImage(tileWidth-2, tileHeight-2, ebiten.FilterDefault)
+			tile, _ := ebiten.NewImage(tileWidth-tileGap, tileHeight-tileGap, ebiten.FilterDefault)
 
 			cellImages[i][j] = tile
 		}

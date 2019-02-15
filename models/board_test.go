@@ -21,8 +21,8 @@ func TestInitialBoardAdvanceNoWinner(t *testing.T) {
 
 	assert.Equal(t, w, (Winner)(NoWinner))
 
-	assert.Equal(t, b.grid[0][7], (Cell)(P1Neck))
-	assert.Equal(t, b.grid[15][7], (Cell)(P2Neck))
+	assert.Equal(t, b.grid[0][7], (Cell)(P1Tail))
+	assert.Equal(t, b.grid[15][7], (Cell)(P2Tail))
 	assert.Equal(t, b.grid[1][7], (Cell)(P1Head))
 	assert.Equal(t, b.grid[14][7], (Cell)(P2Head))
 }

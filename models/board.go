@@ -66,11 +66,9 @@ func (b *Board) Advance() (Winner, *Board) {
 	b.P1.prevDirection = b.P1.direction
 	b.P2.prevDirection = b.P2.direction
 
-	// p1oldneck := b.findCell(P1Neck)
 	p1neck := b.findCell(P1Head)
 	p1head := p1neck.nextPosition(b.P1.direction)
 
-	// p2oldneck := b.findCell(P2Neck)
 	p2neck := b.findCell(P2Head)
 	p2head := p2neck.nextPosition(b.P2.direction)
 
@@ -86,8 +84,7 @@ func (b *Board) Advance() (Winner, *Board) {
 			p1crash = true
 			b.setCell(p1neck, Crash)
 		} else {
-			// b.setCell(p1oldneck, P1Tail)
-			b.setCell(p1neck, P1Neck)
+			b.setCell(p1neck, P1Tail)
 			b.setCell(p1head, P1Head)
 		}
 
@@ -95,8 +92,7 @@ func (b *Board) Advance() (Winner, *Board) {
 			p2crash = true
 			b.setCell(p2neck, Crash)
 		} else {
-			// b.setCell(p2oldneck, P2Tail)
-			b.setCell(p2neck, P2Neck)
+			b.setCell(p2neck, P2Tail)
 			b.setCell(p2head, P2Head)
 		}
 	}
