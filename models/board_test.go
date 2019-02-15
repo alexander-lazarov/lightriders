@@ -57,11 +57,11 @@ func TestInitialBoardAdvanceDraw(t *testing.T) {
 func TestInitialBoardAdvanceP1Wins(t *testing.T) {
 	b := InitialBoard()
 
-	w, _ := b.Advance(Left, Right)
+	w, _ := b.Advance(Right, Right)
 
 	t.Run("Winner", func(t *testing.T) {
 		if w != P1Wins {
-			t.Errorf("Expected game winner to be NoWinner")
+			t.Errorf("Expected game winner to be P1")
 		}
 	})
 
@@ -74,8 +74,8 @@ func TestInitialBoardAdvanceP2Wins(t *testing.T) {
 	w, _ := b.Advance(Left, Left)
 
 	t.Run("Winner", func(t *testing.T) {
-		if w != P1Wins {
-			t.Errorf("Expected game winner to be NoWinner")
+		if w != P2Wins {
+			t.Errorf("Expected game winner to be P2")
 		}
 	})
 
