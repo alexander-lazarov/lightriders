@@ -7,7 +7,7 @@ import (
 func TestInitialBoardAdvanceNoWinner(t *testing.T) {
 	b := InitialBoard()
 
-	w, _ := b.Advance(Up, Down)
+	w, _ := b.Advance(Right, Left)
 
 	t.Run("Winner", func(t *testing.T) {
 		if w != NoWinner {
@@ -43,7 +43,7 @@ func TestInitialBoardAdvanceNoWinner(t *testing.T) {
 func TestInitialBoardAdvanceDraw(t *testing.T) {
 	b := InitialBoard()
 
-	w, _ := b.Advance(Down, Up)
+	w, _ := b.Advance(Left, Right)
 
 	t.Run("Winner", func(t *testing.T) {
 		if w != Draw {
@@ -57,7 +57,7 @@ func TestInitialBoardAdvanceDraw(t *testing.T) {
 func TestInitialBoardAdvanceP1Wins(t *testing.T) {
 	b := InitialBoard()
 
-	w, _ := b.Advance(Up, Up)
+	w, _ := b.Advance(Left, Right)
 
 	t.Run("Winner", func(t *testing.T) {
 		if w != P1Wins {
@@ -71,7 +71,7 @@ func TestInitialBoardAdvanceP1Wins(t *testing.T) {
 func TestInitialBoardAdvanceP2Wins(t *testing.T) {
 	b := InitialBoard()
 
-	w, _ := b.Advance(Down, Down)
+	w, _ := b.Advance(Left, Left)
 
 	t.Run("Winner", func(t *testing.T) {
 		if w != P1Wins {

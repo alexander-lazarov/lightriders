@@ -1,11 +1,15 @@
 package models
 
+// BoardWidth in cells
 const BoardWidth = 16
+
+// BoardHeight in cells
 const BoardHeight = 16
 
 // Player represents a player in the game
 type Player struct {
-	name string
+	name      string
+	direction Direction
 }
 
 const (
@@ -106,8 +110,8 @@ func (b *Board) AvailableMoves(P1 bool) []Direction {
 
 // InitialBoard creates an initial board
 func InitialBoard() *Board {
-	P1 := Player{name: "Player 1"}
-	P2 := Player{name: "Player 2"}
+	P1 := Player{name: "Player 1", direction: Right}
+	P2 := Player{name: "Player 2", direction: Left}
 	grid := new(Grid)
 
 	b := new(Board)
