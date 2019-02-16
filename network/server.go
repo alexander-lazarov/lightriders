@@ -17,6 +17,9 @@ var serverWriter *bufio.Writer
 var serverEncoder *json.Encoder
 var serverDecoder *json.Decoder
 
+// InitServer network and return two channels:
+// - the first one consumes directions from the client
+// - the second one consumes board states and sends them to the client
 func InitServer() (*chan models.Direction, *chan models.Board) {
 	fmt.Printf("Listening on port %d...\n", Port)
 	ln, err := net.Listen("tcp", fmt.Sprintf(":%d", Port))

@@ -18,6 +18,9 @@ var clientWriter *bufio.Writer
 var clientEncoder *json.Encoder
 var clientDecoder *json.Decoder
 
+// InitClient network and return two channels:
+// - the first one consumes directions and sends them to the client
+// - the second one consumes board states from the server
 func InitClient(serverAddr string) (*chan models.Direction, *chan models.Board) {
 	conn, err := net.Dial("tcp", fmt.Sprintf("%s:%d", serverAddr, Port))
 	if err != nil {
