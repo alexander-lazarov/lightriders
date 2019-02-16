@@ -24,11 +24,15 @@ var clientDecoder *json.Decoder
 // - the second one consumes board states from the server
 func InitClient(serverAddr string) (*chan models.Direction, *chan models.Board) {
 	for {
+		fmt.Printf("Connecting to %s:%d...", serverAddr, Port)
 		conn, err := net.Dial("tcp", fmt.Sprintf("%s:%d", serverAddr, Port))
 		if err != nil {
+			fmt.Printf(" failed, retrying in 0.5s\n")
 			time.Sleep(500 * time.Millisecond)
 			continue
 		}
+
+		fmt.Println("Connected!")
 
 		clientReader = bufio.NewReader(conn)
 		clientWriter = bufio.NewWriter(conn)
