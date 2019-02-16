@@ -6,6 +6,7 @@ type Position struct {
 	Y int
 }
 
+// nextPosition in the grid
 func (p Position) nextPosition(d Direction) (result Position) {
 	result = p
 

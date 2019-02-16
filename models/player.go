@@ -7,6 +7,8 @@ type Player struct {
 	PrevDirection Direction
 }
 
+// SetDirection checks if the change in direction is a valid one
+// and updates the player if so
 func (p *Player) SetDirection(d Direction) {
 	if d != p.PrevDirection.opposite() {
 		p.Direction = d
