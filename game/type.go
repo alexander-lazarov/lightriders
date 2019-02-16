@@ -17,6 +17,7 @@ const (
 // Type of the game
 type Type byte
 
+// GetType the game type from a string
 func GetType(args []string) (Type, string) {
 	if len(args) == 1 {
 		return Hotseat, ""

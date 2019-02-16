@@ -24,10 +24,12 @@ func InitBoardImage() {
 	}
 }
 
+// GetBoardImage returns a reference to the board image
 func GetBoardImage() *ebiten.Image {
 	return boardImage
 }
 
+// UpdateBoardImage receives a board and updates the board image accordingly
 func UpdateBoardImage(board *models.Board) {
 	for i := range cellImages {
 		for j := range cellImages[i] {

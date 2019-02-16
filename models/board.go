@@ -100,6 +100,8 @@ func (b *Board) isOutside(p Position) bool {
 	return p.X < 0 || p.X >= BoardWidth || p.Y < 0 || p.Y >= BoardHeight
 }
 
+// findsCell iterates through the board and finds the cell coordinates
+// works only with P1Head or P2Head cell values
 func (b *Board) findCell(c Cell) (p Position) {
 	for i := 0; i < BoardWidth; i++ {
 		for j := 0; j < BoardHeight; j++ {
