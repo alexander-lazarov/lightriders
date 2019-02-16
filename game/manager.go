@@ -105,11 +105,7 @@ func initHotseat() {
 	initLocalStateManager()
 }
 
-// update - game loop as from ebiten's prospective
-// read input from the current frame, send/receive from network
-// update screen state
-func update(screen *ebiten.Image) error {
-	boardLock.Lock()
+func handleKeyboardInput() {
 	if gameType == Hotseat {
 		input.HandleInputToPlayer(board.P1, &input.KeysetWASD)
 		input.HandleInputToPlayer(board.P2, &input.KeysetArrows)
@@ -122,6 +118,14 @@ func update(screen *ebiten.Image) error {
 			*keyOutput <- key
 		}
 	}
+}
+
+// update - game loop as from ebiten's prospective
+// read input from the current frame, send/receive from network
+// update screen state
+func update(screen *ebiten.Image) error {
+	boardLock.Lock()
+	handleKeyboardInput()
 	boardLock.Unlock()
 
 	boardLock.RLock()
