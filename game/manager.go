@@ -36,6 +36,10 @@ func InitGame(t Type, serverName string) {
 	}
 }
 
+// initServerGame initializes server:
+//   - inits network
+//   - attaches input/outputs channels
+//   - inits local game state
 func initServerGame() {
 	keyInput, boardOutput = network.InitServer()
 
@@ -49,9 +53,12 @@ func initServerGame() {
 		}
 	}()
 
-	initHotseat()
+	initLocalStateManager()
 }
 
+// initClientGame initializes client:
+//   - inits network
+//   - attaches input/output channels
 func initClientGame(serverName string) {
 	boardReady := make(chan struct{})
 
@@ -84,7 +91,8 @@ func initClientGame(serverName string) {
 	ebiten.Run(update, graphics.TotalWidth, graphics.TotalHeight, 2, "Lightriders!")
 }
 
-func initHotseat() {
+// initLocalStateManager inits locally running loop
+func initLocalStateManager() {
 	board = *models.InitialBoard()
 
 	graphics.InitBoardImage()
@@ -93,6 +101,13 @@ func initHotseat() {
 	ebiten.Run(update, graphics.TotalWidth, graphics.TotalHeight, 2, "Lightriders!")
 }
 
+func initHotseat() {
+	initLocalStateManager()
+}
+
+// update - game loop as from ebiten's prospective
+// read input from the current frame, send/receive from network
+// update screen state
 func update(screen *ebiten.Image) error {
 	boardLock.Lock()
 	if gameType == Hotseat {
@@ -117,11 +132,12 @@ func update(screen *ebiten.Image) error {
 	return nil
 }
 
+// boardLoop holds the game logic - it advances the game
 func boardLoop() {
 	var winner models.Winner = models.NoWinner
 
 	for {
-		time.Sleep(1000 * time.Millisecond)
+		time.Sleep(speed)
 
 		boardLock.Lock()
 		if winner == models.NoWinner {
