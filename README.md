@@ -1,6 +1,7 @@
 # LightRiders
 
-LightRiders is a classic action game.
+LightRiders is a classic multiplayer action game. You can either play with your
+opponent on the same computer (`hotseat`), or play through the network.
 
 ## Installation
 
@@ -16,10 +17,19 @@ go mod download
 go test ./...
 ```
 
-## Build and run
+## Build
 
-- TODO - see if it's possible to get it running with WASM
-- TODO - pre-commit hooks - code linting, running tests
+```
+go build
+```
+
+## Run
+
+```
+lightriders [hotseat]       - 2 players on one computer
+lightriders join            - host a multiplayer game
+lightriders host <hostname> - join a multiplayer game
+```
 
 ## Dependencies
 
@@ -29,7 +39,5 @@ Run `go mod download` to download dependencies.
 
 - [x] Basic data types
 - [ ] Repo stuff - pre-commit hooks
-- [ ] State manager
-- [ ] Hook up ebitien game engine
-- [ ] Sort out networking
-
+- [x] Hook up ebitien game engine
+- [x] Sort out networking
