@@ -5,11 +5,18 @@ opponent on the same computer (`hotseat`), or play through the network.
 
 ## Installation
 
-Need to have Go installed. After that clone the repository
+Need to have Go supproting modules installed (>=1.11). After making sure that
+you have the right `go` version installed (`go version`), run in a terminal:
 
 ```
 git clone https://github.com/alexander-lazarov/lightriders
 go mod download
+
+# build
+go build
+
+# or just run
+go run main.Go --help
 ```
 
 ## Running tests
