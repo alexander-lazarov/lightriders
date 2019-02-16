@@ -8,17 +8,17 @@ const BoardWidth = 16
 // BoardHeight in cells
 const BoardHeight = 16
 
-// Grid is a two-dimensional array of bytes, representing the grid state
+// Grid is a two-dimensional array of bytes, representing the Grid state
 // The lower left corner has coordinates 0, 0
 type Grid [BoardWidth][BoardHeight]Cell
 
 // Board rerpesents a game board:
 // - P1, P2 - reference to players
-// - grid - a two dimensional array, containing the board state
+// - Grid - a two dimensional array, containing the board state
 type Board struct {
-	P1   *Player
-	P2   *Player
-	grid *Grid
+	P1   Player
+	P2   Player
+	Grid Grid
 }
 
 const (
@@ -40,25 +40,25 @@ type Winner byte
 
 // GetCell the value of a board cell
 func (b *Board) GetCell(p Position) Cell {
-	return b.grid[p.X][p.Y]
+	return b.Grid[p.X][p.Y]
 }
 
 func (b *Board) setCell(p Position, value Cell) {
-	b.grid[p.X][p.Y] = value
+	b.Grid[p.X][p.Y] = value
 }
 
 // Advance the game 1 move
 // Returns a Winner and a Board
 // This is a comment
 func (b *Board) Advance() (Winner, *Board) {
-	b.P1.prevDirection = b.P1.direction
-	b.P2.prevDirection = b.P2.direction
+	b.P1.PrevDirection = b.P1.Direction
+	b.P2.PrevDirection = b.P2.Direction
 
 	p1neck := b.findCell(P1Head)
-	p1head := p1neck.nextPosition(b.P1.direction)
+	p1head := p1neck.nextPosition(b.P1.Direction)
 
 	p2neck := b.findCell(P2Head)
-	p2head := p2neck.nextPosition(b.P2.direction)
+	p2head := p2neck.nextPosition(b.P2.Direction)
 
 	p1crash := false
 	p2crash := false
@@ -117,23 +117,23 @@ func (b *Board) findCell(c Cell) (p Position) {
 
 // InitialBoard creates an initial board
 func InitialBoard() *Board {
-	P1 := Player{name: "Player 1", direction: Right, prevDirection: Right}
-	P2 := Player{name: "Player 2", direction: Left, prevDirection: Left}
-	grid := new(Grid)
+	P1 := Player{Name: "Player 1", Direction: Right, PrevDirection: Right}
+	P2 := Player{Name: "Player 2", Direction: Left, PrevDirection: Left}
+	Grid := new(Grid)
 
 	b := new(Board)
-	b.P1 = &P1
-	b.P2 = &P2
-	b.grid = grid
+	b.P1 = P1
+	b.P2 = P2
+	b.Grid = *Grid
 
-	for i := range b.grid {
-		for j := range b.grid[i] {
-			b.grid[i][j] = EmptyCell
+	for i := range b.Grid {
+		for j := range b.Grid[i] {
+			b.Grid[i][j] = EmptyCell
 		}
 	}
 
-	b.grid[0][BoardHeight/2+BoardHeight%2] = P1Head
-	b.grid[BoardWidth-1][BoardHeight/2+BoardHeight%2] = P2Head
+	b.Grid[0][BoardHeight/2+BoardHeight%2] = P1Head
+	b.Grid[BoardWidth-1][BoardHeight/2+BoardHeight%2] = P2Head
 
 	return b
 }

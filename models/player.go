@@ -2,13 +2,13 @@ package models
 
 // Player represents a player in the game
 type Player struct {
-	name          string
-	direction     Direction
-	prevDirection Direction
+	Name          string
+	Direction     Direction
+	PrevDirection Direction
 }
 
 func (p *Player) SetDirection(d Direction) {
-	if d != p.prevDirection.opposite() {
-		p.direction = d
+	if d != p.PrevDirection.opposite() {
+		p.Direction = d
 	}
 }

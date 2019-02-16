@@ -12,3 +12,13 @@ func HandleInput(board *models.Player, keyset *Keyset) {
 		}
 	}
 }
+
+func HandleInputDir(keyset *Keyset) (models.Direction, bool) {
+	for in, out := range *keyset {
+		if inpututil.IsKeyJustPressed(in) {
+			return out, true
+		}
+	}
+
+	return 0, false
+}
