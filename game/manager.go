@@ -111,10 +111,10 @@ func initHotseat() {
 func update(screen *ebiten.Image) error {
 	boardLock.Lock()
 	if gameType == Hotseat {
-		input.HandleInputToPlayer(&board.P1, &input.KeysetWASD)
-		input.HandleInputToPlayer(&board.P2, &input.KeysetArrows)
+		input.HandleInputToPlayer(board.P1, &input.KeysetWASD)
+		input.HandleInputToPlayer(board.P2, &input.KeysetArrows)
 	} else if gameType == Server {
-		input.HandleInputToPlayer(&board.P1, &input.KeysetArrows)
+		input.HandleInputToPlayer(board.P1, &input.KeysetArrows)
 	} else {
 		key, ok := input.GetInputDir(&input.KeysetArrows)
 

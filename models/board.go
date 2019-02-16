@@ -16,9 +16,9 @@ type Grid [BoardWidth][BoardHeight]Cell
 // - P1, P2 - reference to players
 // - Grid - a two dimensional array, containing the board state
 type Board struct {
-	P1   Player
-	P2   Player
-	Grid Grid
+	P1   *Player
+	P2   *Player
+	Grid *Grid
 }
 
 const (
@@ -124,9 +124,9 @@ func InitialBoard() *Board {
 	Grid := new(Grid)
 
 	b := new(Board)
-	b.P1 = P1
-	b.P2 = P2
-	b.Grid = *Grid
+	b.P1 = &P1
+	b.P2 = &P2
+	b.Grid = Grid
 
 	for i := range b.Grid {
 		for j := range b.Grid[i] {
