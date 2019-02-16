@@ -5,7 +5,9 @@ import (
 	"github.com/hajimehoshi/ebiten/inpututil"
 )
 
-func HandleInput(board *models.Player, keyset *Keyset) {
+// HandleInputToPlayer checks if any key from the keyset has been pressed
+// and updates the player direction
+func HandleInputToPlayer(board *models.Player, keyset *Keyset) {
 	for in, out := range *keyset {
 		if inpututil.IsKeyJustPressed(in) {
 			board.SetDirection(out)
@@ -13,7 +15,10 @@ func HandleInput(board *models.Player, keyset *Keyset) {
 	}
 }
 
-func HandleInputDir(keyset *Keyset) (models.Direction, bool) {
+// GetInputDir checks if any key from the keyset has been pressed during
+// the last frame and returns the player direction in that case. If no key
+// has been pressed the second argument is bool
+func GetInputDir(keyset *Keyset) (models.Direction, bool) {
 	for in, out := range *keyset {
 		if inpututil.IsKeyJustPressed(in) {
 			return out, true

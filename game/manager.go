@@ -22,6 +22,7 @@ var boardInput *chan models.Board
 var keyInput *chan models.Direction
 var boardOutput *chan models.Board
 
+// InitGame entry point of the game - inits the appriate game type
 func InitGame(t Type, serverName string) {
 	gameType = t
 
@@ -95,12 +96,12 @@ func initHotseat() {
 func update(screen *ebiten.Image) error {
 	boardLock.Lock()
 	if gameType == Hotseat {
-		input.HandleInput(&board.P1, &input.KeysetWASD)
-		input.HandleInput(&board.P2, &input.KeysetArrows)
+		input.HandleInputToPlayer(&board.P1, &input.KeysetWASD)
+		input.HandleInputToPlayer(&board.P2, &input.KeysetArrows)
 	} else if gameType == Server {
-		input.HandleInput(&board.P1, &input.KeysetArrows)
+		input.HandleInputToPlayer(&board.P1, &input.KeysetArrows)
 	} else {
-		key, ok := input.HandleInputDir(&input.KeysetArrows)
+		key, ok := input.GetInputDir(&input.KeysetArrows)
 
 		if ok {
 			*keyOutput <- key
