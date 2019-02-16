@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net"
+	"time"
 
 	"github.com/alexander-lazarov/lightriders/models"
 )
@@ -22,24 +23,27 @@ var clientDecoder *json.Decoder
 // - the first one consumes directions and sends them to the client
 // - the second one consumes board states from the server
 func InitClient(serverAddr string) (*chan models.Direction, *chan models.Board) {
-	conn, err := net.Dial("tcp", fmt.Sprintf("%s:%d", serverAddr, Port))
-	if err != nil {
-		panic("Network error")
+	for {
+		conn, err := net.Dial("tcp", fmt.Sprintf("%s:%d", serverAddr, Port))
+		if err != nil {
+			time.Sleep(500 * time.Millisecond)
+			continue
+		}
+
+		clientReader = bufio.NewReader(conn)
+		clientWriter = bufio.NewWriter(conn)
+
+		clientEncoder = json.NewEncoder(clientWriter)
+		clientDecoder = json.NewDecoder(clientReader)
+
+		keyOutput = make(chan models.Direction)
+		boardInput = make(chan models.Board)
+
+		keySenderInit()
+		boardReceiverInit()
+
+		return &keyOutput, &boardInput
 	}
-
-	clientReader = bufio.NewReader(conn)
-	clientWriter = bufio.NewWriter(conn)
-
-	clientEncoder = json.NewEncoder(clientWriter)
-	clientDecoder = json.NewDecoder(clientReader)
-
-	keyOutput = make(chan models.Direction)
-	boardInput = make(chan models.Board)
-
-	keySenderInit()
-	boardReceiverInit()
-
-	return &keyOutput, &boardInput
 }
 
 func keySenderInit() {
